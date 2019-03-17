@@ -24,8 +24,8 @@ public class Game {
 	{
 		pickTower = new UI();
 		//pickTower.addButton("SchulichTower", "sTower", 0, 0);
-		pickTower.createMenu("TowerPicker", 0, 0, 2, 0);
-		pickTower.getMenu("TowerPicker").addButton(new Button("ScienceTower", Graphics.QuickLoad("sTower"), 0, 0));
+		pickTower.createMenu("TowerPicker", 1344, 0, 2, 0);
+		pickTower.getMenu("TowerPicker").addButton(new Button("ScienceTower", Graphics.QuickLoad("sTower"), 0, 192));
 	}
 	
 	private void updateUI()

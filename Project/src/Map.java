@@ -1,6 +1,7 @@
 public class Map {
 	
 	public Tile[][] grid;
+	private int tilesWide, tilesHigh;
 	
 	public Map() {
 		grid = new Tile[20][15];
@@ -13,6 +14,8 @@ public class Map {
 	}
 	
 	public Map(int[][] newGrid) {
+		this.tilesWide = newGrid[0].length;
+		this.tilesHigh = newGrid.length;
 		grid = new Tile[20][15];
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
@@ -40,7 +43,12 @@ public class Map {
 	}
 	
 	public Tile GetTile(int xPlace, int yPlace) {
-		return grid[xPlace][yPlace];
+		if(xPlace < this.tilesWide && yPlace < this.tilesHigh && xPlace > -1 && yPlace > -1)
+		{	
+			return grid[xPlace][yPlace];
+		}else{
+			return new Tile(0,0,0,0,TileType.NULL);
+		}	
 	}
 	
 	
