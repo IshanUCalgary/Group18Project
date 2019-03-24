@@ -62,7 +62,7 @@ public class Player {
         }*/
 		
 
-		if(Mouse.isButtonDown(0) && !leftClick)
+		if(Mouse.isButtonDown(0) && !leftClick && grid.GetTile(Mouse.getX() / 64, (Graphics.HEIGHT - Mouse.getY() -1) / 64).getType().canBuild == true)
 		{
 			placeTower();
 		}

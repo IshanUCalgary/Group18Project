@@ -18,7 +18,7 @@ public class Wave {
 		timeSinceLastSpawn += Time.Delta();
 		if (timeSinceLastSpawn > spawnTime) {
 			// spawns a new enemy
-			enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getGrid(), 64, 64, enemyType.getSpeed()));
+			enemyList.add(new Enemy(enemyType.getTexture(), enemyType.getStartTile(), enemyType.getGrid(), 64, 64, enemyType.getSpeed(),50));
 			timeSinceLastSpawn = 0;
 		}
 		for (Enemy e: enemyList) {

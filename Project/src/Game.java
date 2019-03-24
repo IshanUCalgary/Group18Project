@@ -13,7 +13,7 @@ public class Game {
 	{
 		grid = new Map(map);
 		player = new Player(grid);
-		e = new Enemy(Graphics.QuickLoad("enemy"), grid.GetTile(1, 2), grid, 64, 64, 12);
+		e = new Enemy(Graphics.QuickLoad("enemy"), grid.GetTile(1, 2), grid, 64, 64, 12, 50);
 		wave = new Wave(10, e);
 		setupUI();
 		//tower = new ScienceTower(Graphics.QuickLoad("cannonBase"), grid.GetTile(3, 3), 10);
@@ -26,6 +26,8 @@ public class Game {
 		//pickTower.addButton("SchulichTower", "sTower", 0, 0);
 		pickTower.createMenu("TowerPicker", 1344, 0, 2, 0);
 		pickTower.getMenu("TowerPicker").addButton(new Button("ScienceTower", Graphics.QuickLoad("sTower"), 0, 192));
+		pickTower.getMenu("TowerPicker").addButton(new Button("EngTower", Graphics.QuickLoad("engTower"), 0, 192));
+		pickTower.getMenu("TowerPicker").addButton(new Button("HaskTower", Graphics.QuickLoad("haskTower"), 0, 192));
 	}
 	
 	private void updateUI()
@@ -40,6 +42,13 @@ public class Game {
 				if(pickTower.getMenu("TowerPicker").isButtonClicked("ScienceTower"))
 				{
 					player.pickTower(new ScienceTower(TowerType.sTower, grid.GetTile(0, 0)));
+				}else if(pickTower.getMenu("TowerPicker").isButtonClicked("EngTower"))
+				{
+					player.pickTower(new ScienceTower(TowerType.schulichTower, grid.GetTile(0, 0)));
+				}
+				else if(pickTower.getMenu("TowerPicker").isButtonClicked("HaskTower"))
+				{
+					player.pickTower(new ScienceTower(TowerType.haskTower, grid.GetTile(0, 0)));
 				}
 			}	
 		}	

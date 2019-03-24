@@ -30,6 +30,12 @@ public class Map {
 				case 2:
 					grid[i][j] = new Tile(i*64, j*64, 64, 64, TileType.Ice);
 					break;
+				case 3:
+					grid[i][j] = new Tile(i*64, j*64, 64, 64, TileType.Tree);
+					break;
+				case 4:
+					grid[i][j] = new Tile(i*64, j*64, 64, 64, TileType.Snowman);
+					break;
 				}
 			}
 		}

@@ -6,24 +6,30 @@ import org.newdawn.slick.opengl.Texture;
 
 public class Enemy {
 	
-	private Texture texture;
+	private Texture texture, healthBackground, healthForeground, healthBorder;
+
 	private Tile startTile;
 	private int width, height, currentCorner;
-	private float speed, x, y;
+	private float speed, x, y, health, startHealth;
 	private Map grid;
 	private boolean first = true;	// for performance issues when game starts
 	private ArrayList<CornerCheck> corners;
 	private int[] directions;
 	
 	
-	public Enemy (Texture texture, Tile startTile, Map grid, int width, int height, float speed) {
+	public Enemy (Texture texture, Tile startTile, Map grid, int width, int height, float speed, float health) {
 		this.texture = texture;
+		this.healthBackground = Graphics.QuickLoad("HealthBackground");
+		this.healthForeground = Graphics.QuickLoad("HealthForeground");
+		this.healthBorder = Graphics.QuickLoad("HealthBorder");
 		this.startTile = startTile;
 		this.x = startTile.getX();
 		this.y = startTile.getY();
 		this.width = width;
 		this.height = height;
 		this.speed = speed;
+		this.health = health;
+		this.startHealth = health;
 		this.grid = grid;
 		this.corners = new ArrayList<CornerCheck>();
 		this.directions = new int[2];
@@ -39,7 +45,11 @@ public class Enemy {
 	
 	// draws an enemy at a location with given width and height
 	public void DrawEnemy() {
+		float healthPercentage = this.health / this.startHealth;
 		Graphics.DrawQuadTex(texture, x, y, width, height);
+		Graphics.DrawQuadTex(healthBackground, x, y - 16, width, 8);
+		Graphics.DrawQuadTex(healthForeground, x, y - 16, 64 * healthPercentage, 8);
+		Graphics.DrawQuadTex(healthBorder, x, y - 16, width, 8);
 		
 	}
 
@@ -254,6 +264,15 @@ public class Enemy {
 
 	public void setGrid(Map grid) {
 		this.grid = grid;
+	}
+	
+	public float getHealth() {
+		return health;
+	}
+	
+	
+	public void setHealth(float health) {
+		this.health = health;
 	}
 	
 	

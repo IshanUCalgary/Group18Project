@@ -2,7 +2,7 @@
 public enum TileType {
 	
 	// Name(fileName, canBuild)
-	Snow("Snow", true), Path("Path", false), Ice("Ice", false), NULL("Ice",false);
+	Snow("Snow", true), Path("Path", false), Ice("Ice", false), Tree("Tree", false), Snowman("Snowman", false), NULL("Ice",false);
 	
 	String textureName;
 	boolean canBuild;
