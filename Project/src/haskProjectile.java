@@ -1,4 +1,4 @@
-/*
+
 public class haskProjectile extends Projectile {
 
 	public haskProjectile(ProjectileType type, Enemy target, float x, float y, int width, int height) {
@@ -11,4 +11,3 @@ public class haskProjectile extends Projectile {
 	}
 
 }
-*/

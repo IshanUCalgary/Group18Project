@@ -6,15 +6,17 @@ public abstract class Tower implements Default{
 	
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
 	private int width, height, damage, range;
-	private Enemy target;
-	private ArrayList<Projectile> projectiles;
+	public Enemy target;
+	public ArrayList<Projectile> projectiles;
 	private ArrayList<Enemy> enemies;
 	private Texture[] textures;
 	private boolean targeted;
+	public TowerType type;
 	
 	public Tower(TowerType type, Tile sTile, int range, ArrayList<Enemy> enemies)
 	{
 		//System.out.println("There is somehint " + (enemies.get(0) != null));
+		this.type = type;
 		this.textures = type.texture;
 		this.damage = type.damage;
 		this.x = sTile.getX();
@@ -125,11 +127,14 @@ public abstract class Tower implements Default{
 		
 	}
 	
+	public abstract void shoot(Enemy e);
+	
+	/*
 	private void shoot()
 	{
 		timeSinceLastShot = 0;
-		projectiles.add(new Projectile(Graphics.QuickLoad("sProjectile"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32,32,900, 10));
-	}
+		projectiles.add(new Projectile(Graphics.QuickLoad("haskProjectile"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32,32,900, 10));
+	}*/
 	
 	public void updateList(ArrayList<Enemy> newList)
 	{
@@ -145,7 +150,8 @@ public abstract class Tower implements Default{
 			angle = calculateAngle();
 			if (timeSinceLastShot > firingSpeed)
 			{
-				shoot();
+				shoot(target);
+				timeSinceLastShot = 0;
 			}
 		}
 		

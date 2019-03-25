@@ -1,6 +1,6 @@
-/*public class sProjectile extends Projectile {
+public class sProjectile extends Projectile {
 
-	/*
+	
 	public sProjectile(ProjectileType type, Enemy target, float x, float y, int width, int height) {
 		super(type, target, x, y, width, height);
 	}
@@ -11,4 +11,4 @@
 	}
 
 }
-*/
+

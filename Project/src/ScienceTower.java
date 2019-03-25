@@ -6,11 +6,11 @@ public class ScienceTower extends Tower{
 		super(type, sTile, range, e);
 	}
 	
-	/*
+	
 	@Override
 	public void shoot(Enemy target)
 	{
-		super.projectiles.add(new sProjectile(super.type.pType, super.target, super.getX(), super.getY(), 32, 32));
-	}*/
+		super.projectiles.add(new sProjectile(super.type.pType, super.target, super.getX() + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, super.getY() + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32, 32));
+	}
 	
 }

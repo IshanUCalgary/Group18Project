@@ -4,8 +4,8 @@ import org.newdawn.slick.opengl.Texture;
 public enum ProjectileType {
 
 	
-	sProjectile(Graphics.QuickLoad("sProjectile"), 10, 500),
-	haskProjectile(Graphics.QuickLoad("haskProjectile"), 6,450);
+	sProjectile(Graphics.QuickLoad("sProjectile"), 15, 500),
+	haskProjectile(Graphics.QuickLoad("haskProjectile"), 10,600);
 	
 	Texture texture;
 	int damage;

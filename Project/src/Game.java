@@ -14,7 +14,7 @@ public class Game {
 	{
 		grid = new Map(map);
 		e = new Enemy(Graphics.QuickLoad("enemy"), grid.GetTile(0, 2), grid, 64, 64, 70, 50);
-		wave = new WaveManager(e, 2, 2);
+		wave = new WaveManager(e, 1, 5);
 		player = new Player(grid, wave);
 		setupUI();
 		//tower = new ScienceTower(Graphics.QuickLoad("cannonBase"), grid.GetTile(3, 3), 10);
@@ -48,11 +48,11 @@ public class Game {
 					player.pickTower(new ScienceTower(TowerType.sTower, grid.GetTile(0, 0), 1000, wave.getCurrentWave().getEnemyList()));
 				}else if(pickTower.getMenu("TowerPicker").isButtonClicked("EngTower"))
 				{
-					player.pickTower(new ScienceTower(TowerType.schulichTower, grid.GetTile(0, 0), 1000,wave.getCurrentWave().getEnemyList()));
+					player.pickTower(new SchulichTower(TowerType.schulichTower, grid.GetTile(0, 0), 1000,wave.getCurrentWave().getEnemyList()));
 				}
 				else if(pickTower.getMenu("TowerPicker").isButtonClicked("HaskTower"))
 				{
-					player.pickTower(new ScienceTower(TowerType.haskTower, grid.GetTile(0, 0),1000,wave.getCurrentWave().getEnemyList()));
+					player.pickTower(new HaskyaneTower(TowerType.haskTower, grid.GetTile(0, 0),1000,wave.getCurrentWave().getEnemyList()));
 				}
 			}	
 		}	

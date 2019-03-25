@@ -8,13 +8,15 @@ public class Projectile {
 	private Enemy target;
 	private boolean alive;
 	
-	public Projectile(Texture tex, Enemy target, float x, float y, float width, float height,float speed, int damage)
+	public Projectile(ProjectileType type, Enemy target, float x, float y, float width, float height)
 	{
-		this.texture = tex;
+		this.texture = type.texture;
 		this.x = x;
 		this.y = y;
-		this.speed = speed;
-		this.damage = damage;
+		//this.speed = speed;
+		this.speed = type.speed;
+		//this.damage = damage;
+		this.damage = type.damage;
 		this.target = target;
 		this.alive = true;
 		this.xVelocity = 0f;
@@ -23,6 +25,11 @@ public class Projectile {
 			calculateDirection();
 	}
 	
+	//Deal damage to Enemy
+	public void damage() {
+		target.hit(damage);
+		alive = false;
+	}
 	
 	private void calculateDirection()
 	{
