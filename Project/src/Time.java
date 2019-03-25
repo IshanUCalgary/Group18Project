@@ -19,7 +19,7 @@ public class Time {
 		long currentTime = getTime();
 		int delta = (int)(currentTime - lastFrame);
 		lastFrame = getTime();
-		return delta * (float)0.01;
+		return delta * (float)0.001;
 	}
 	
 	

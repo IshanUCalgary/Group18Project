@@ -12,7 +12,7 @@ public class Enemy {
 	private int width, height, currentCorner;
 	private float speed, x, y, health, startHealth;
 	private Map grid;
-	private boolean first = true;	// for performance issues when game starts
+	private boolean first = true, alive = true;	// for performance issues when game starts
 	private ArrayList<CornerCheck> corners;
 	private int[] directions;
 	
@@ -62,7 +62,9 @@ public class Enemy {
 		else {
 			if (CornerReached()) {
 				if (currentCorner + 1 == corners.size())
-					System.out.println("Enemy cannot go further");
+				{	
+					Die();
+				}	
 				else 
 					currentCorner++;
 			} else 
@@ -79,7 +81,7 @@ public class Enemy {
 		boolean reached = false;
 		Tile tile = corners.get(currentCorner).getTile();
 		// check if position reached by enemy on cornerTile is within a variance of an arbitrary number so that it won't go over
-		if (x > tile.getX() - 4 && x < tile.getX() + 4 && y > tile.getY() - 4 && y < tile.getY() + 4) {
+		if (x > tile.getX() - 3 && x < tile.getX() + 3 && y > tile.getY() - 3 && y < tile.getY() + 3) {
 			reached = true;
 			x = tile.getX();
 			y = tile.getY();
@@ -157,18 +159,24 @@ public class Enemy {
 		} else {
 			dir[0] = 2;
 			dir[1] = 2;
-			System.out.println("NO DIRECTION FOUND");
+			//System.out.println("NO DIRECTION FOUND");
 		}
 		
 		return dir;
 	}
 	
+	private void Die() {
+		alive = false;
+	}
 	
-	
-	
-	
-	
-	
+	public void hit(int amount)
+	{
+		this.health -= amount;
+		if(health <= 0)
+		{
+			Die();
+		}
+	}
 	
 	// setters and getters
 
@@ -273,6 +281,10 @@ public class Enemy {
 	
 	public void setHealth(float health) {
 		this.health = health;
+	}
+	
+	public boolean isAlive() {
+		return alive;
 	}
 	
 	

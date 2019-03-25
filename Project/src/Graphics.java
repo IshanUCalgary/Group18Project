@@ -44,6 +44,14 @@ public class Graphics {
 	}*/
 	//new Tile(i*64, j*64, 64, 64, TileType.Snow)
 	
+	public static boolean CheckCollision(float x1, float y1, float width1, float height1, float x2, float y2, float width2, float height2)
+	{
+		if(x1 + width1 > x2 && x1 < x2 + width2 && y1 + height1 > y2 && y1 < y2 + height2)
+		{	
+			return true;
+		}			
+		return false;	
+	}
 	
 	public static void DrawPanelTower(String texTowerName) {
 		Texture tex = Graphics.QuickLoad(texTowerName);
@@ -72,6 +80,25 @@ public class Graphics {
 		tex.bind();
 		//translates the x,y position to be treated as 0,0
 		glTranslatef(x, y, 0);
+		glBegin(GL_QUADS);
+		glTexCoord2f(0, 0);
+		glVertex2f(0, 0);
+		glTexCoord2f(1,0);
+		glVertex2f(width,0);
+		glTexCoord2f(1, 1);
+		glVertex2f(width, height);
+		glTexCoord2f(0, 1);
+		glVertex2f(0, height);
+		glEnd();
+		glLoadIdentity();
+	}
+	
+	public static void DrawQuadTexRot(Texture tex, float x, float y, float width, float height, float angle) {
+		tex.bind();
+		//translates the x,y position to be treated as 0,0
+		glTranslatef(x + width/2, y + height/2, 0);
+		glRotatef(angle, 0, 0, 1);
+		glTranslatef(-width/2, -height/2, 0);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
 		glVertex2f(0, 0);

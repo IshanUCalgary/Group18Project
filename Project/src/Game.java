@@ -5,19 +5,22 @@ public class Game {
 	private Map grid;
 	private Player player;
 	private Enemy e;
-	private Wave wave;
+	private WaveManager wave;
 	private UI pickTower;
+	public static final int TILE_SIZE = 64;
 	//private ScienceTower tower;
 	
 	public Game(int[][] map)
 	{
 		grid = new Map(map);
-		player = new Player(grid);
-		e = new Enemy(Graphics.QuickLoad("enemy"), grid.GetTile(1, 2), grid, 64, 64, 12, 50);
-		wave = new Wave(10, e);
+		e = new Enemy(Graphics.QuickLoad("enemy"), grid.GetTile(0, 2), grid, 64, 64, 70, 50);
+		wave = new WaveManager(e, 2, 2);
+		player = new Player(grid, wave);
 		setupUI();
 		//tower = new ScienceTower(Graphics.QuickLoad("cannonBase"), grid.GetTile(3, 3), 10);
 	}
+	
+	
 	
 	//Change
 	private void setupUI()
@@ -33,6 +36,7 @@ public class Game {
 	private void updateUI()
 	{
 		pickTower.draw();
+		//System.out.println("This is the size " + wave.getCurrentWave().getEnemyList().size());
 		
 		if(Mouse.next())
 		{
@@ -41,14 +45,14 @@ public class Game {
 			{	
 				if(pickTower.getMenu("TowerPicker").isButtonClicked("ScienceTower"))
 				{
-					player.pickTower(new ScienceTower(TowerType.sTower, grid.GetTile(0, 0)));
+					player.pickTower(new ScienceTower(TowerType.sTower, grid.GetTile(0, 0), 1000, wave.getCurrentWave().getEnemyList()));
 				}else if(pickTower.getMenu("TowerPicker").isButtonClicked("EngTower"))
 				{
-					player.pickTower(new ScienceTower(TowerType.schulichTower, grid.GetTile(0, 0)));
+					player.pickTower(new ScienceTower(TowerType.schulichTower, grid.GetTile(0, 0), 1000,wave.getCurrentWave().getEnemyList()));
 				}
 				else if(pickTower.getMenu("TowerPicker").isButtonClicked("HaskTower"))
 				{
-					player.pickTower(new ScienceTower(TowerType.haskTower, grid.GetTile(0, 0)));
+					player.pickTower(new ScienceTower(TowerType.haskTower, grid.GetTile(0, 0),1000,wave.getCurrentWave().getEnemyList()));
 				}
 			}	
 		}	
@@ -61,7 +65,7 @@ public class Game {
 		grid.Draw();
 		player.Update();
 		Time.Update();
-		wave.Update();
+		wave.update();
 		updateUI();
 		//tower.draw();
 		

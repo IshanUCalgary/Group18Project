@@ -9,14 +9,16 @@ public class Player {
 	private boolean leftClick, holdingTower;
 	private ArrayList<Tower> towerList;
 	private Tower tTower;
+	private WaveManager waveManager;
 	
 	
-	public Player(Map grid) {
+	public Player(Map grid, WaveManager waveManager) {
 		this.grid = grid;
 		this.leftClick = false;
 		this.towerList = new ArrayList<Tower>();
 		this.holdingTower = false;
 		this.tTower = null;
+		this.waveManager = waveManager;
 		
 	}
 	
@@ -48,6 +50,7 @@ public class Player {
 		for (Tower t : towerList)
 		{
 			t.update();
+			t.updateList(waveManager.getCurrentWave().getEnemyList());
 			t.draw();
 		}
 		/*
