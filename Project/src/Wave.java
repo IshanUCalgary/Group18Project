@@ -1,10 +1,11 @@
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Wave {
 
 	private float timeSinceLastSpawn, spawnTime;
 	private Enemy enemyType;
-	private ArrayList<Enemy> enemyList;
+	private CopyOnWriteArrayList<Enemy> enemyList;
 	private int enemiesPerWave;
 	private boolean waveCompleted;
 	
@@ -14,10 +15,10 @@ public class Wave {
 		this.spawnTime = spawnTime;
 		this.enemiesPerWave = enemiesPerWave;
 		this.timeSinceLastSpawn = 0;
-		enemyList = new ArrayList<Enemy>();
+		enemyList = new CopyOnWriteArrayList<Enemy>();
 		this.waveCompleted = false;
 		Spawn();
-		System.out.println("The size of enemyList is " + enemyList.size());
+		//System.out.println("The size of enemyList is " + enemyList.size());
 	}
 	
 	
@@ -32,8 +33,8 @@ public class Wave {
 			if (timeSinceLastSpawn > spawnTime) {
 				// spawns a new enemy
 				//System.out.println("Reaches before 3rd if condition");
-				Spawn();
-				System.out.println("The size of enemyList is " + enemyList.size());
+				//Spawn();
+				//System.out.println("The size of enemyList is " + enemyList.size());
 				timeSinceLastSpawn = 0;
 			}
 		}	
@@ -43,6 +44,8 @@ public class Wave {
 				allEnemiesDead = false;
 				e.Update();
 				e.DrawEnemy();
+			}else{
+				enemyList.remove(e);
 			}
 		}
 		if(allEnemiesDead)
@@ -64,7 +67,7 @@ public class Wave {
 		return this.waveCompleted;
 	}
 	
-	public ArrayList<Enemy> getEnemyList()
+	public CopyOnWriteArrayList<Enemy> getEnemyList()
 	{
 		return this.enemyList;
 	}

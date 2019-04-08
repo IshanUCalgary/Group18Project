@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.newdawn.slick.opengl.Texture;
 
@@ -8,14 +9,14 @@ public abstract class Tower implements Default{
 	private int width, height, damage, range;
 	public Enemy target;
 	public ArrayList<Projectile> projectiles;
-	private ArrayList<Enemy> enemies;
+	private CopyOnWriteArrayList<Enemy> enemies;
 	private Texture[] textures;
 	private boolean targeted;
 	public TowerType type;
 	
-	public Tower(TowerType type, Tile sTile, int range, ArrayList<Enemy> enemies)
+	public Tower(TowerType type, Tile sTile, int range, CopyOnWriteArrayList<Enemy> enemies)
 	{
-		//System.out.println("There is somehint " + (enemies.get(0) != null));
+		//System.out.println("There is some " + (enemies.get(0) != null));
 		this.type = type;
 		this.textures = type.texture;
 		this.damage = type.damage;
@@ -39,7 +40,7 @@ public abstract class Tower implements Default{
 		float closestDistance = 10000;
 		for(Enemy e : enemies)
 		{
-			if(isInRange(e) && findDistance(e) < closestDistance)
+			if(isInRange(e) && findDistance(e) < closestDistance && e.getHiddenHealth() > 0)
 			{
 				closestDistance = findDistance(e);
 				closest = e;
@@ -136,7 +137,7 @@ public abstract class Tower implements Default{
 		projectiles.add(new Projectile(Graphics.QuickLoad("haskProjectile"), target, x + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, y + Game.TILE_SIZE / 2 - Game.TILE_SIZE / 4, 32,32,900, 10));
 	}*/
 	
-	public void updateList(ArrayList<Enemy> newList)
+	public void updateList(CopyOnWriteArrayList<Enemy> newList)
 	{
 		enemies = newList;
 	}
@@ -144,7 +145,7 @@ public abstract class Tower implements Default{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		if(!targeted){
+		if(!targeted || target.getHiddenHealth() < 0){
 			target = getTarget();
 		}else{
 			angle = calculateAngle();

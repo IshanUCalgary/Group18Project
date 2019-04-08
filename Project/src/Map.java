@@ -4,7 +4,7 @@ public class Map {
 	private int tilesWide, tilesHigh;
 	
 	public Map() {
-		grid = new Tile[20][15];
+		grid = new Tile[tilesWide][tilesHigh];
 		for (int i = 0; i < grid.length; i++) {
 			for (int j = 0; j < grid[i].length; j++) {
 				// each element of grid = 64x64 pixels at given spot with Snow tile type
@@ -44,11 +44,11 @@ public class Map {
 	
 	
 
-	public void SetTile(int x, int y, TileType type) {
+	public void setTile(int x, int y, TileType type) {
 		grid[x][y] = new Tile(x*64, y*64, 64, 64, type);
 	}
 	
-	public Tile GetTile(int xPlace, int yPlace) {
+	public Tile getTile(int xPlace, int yPlace) {
 		if(xPlace < this.tilesWide && yPlace < this.tilesHigh && xPlace > -1 && yPlace > -1)
 		{	
 			return grid[xPlace][yPlace];
@@ -56,10 +56,7 @@ public class Map {
 			return new Tile(0,0,0,0,TileType.NULL);
 		}	
 	}
-	
-	
-	
-	
+
 	
 	public void Draw() {
         for (int i=0; i < grid.length; i++) {
@@ -68,5 +65,22 @@ public class Map {
         	}
         }
 	}
+	
+	public int getTilesWide() {
+		return tilesWide;
+	}
+
+	public void setTilesWide(int tilesWide) {
+		this.tilesWide = tilesWide;
+	}
+
+	public int getTilesHigh() {
+		return tilesHigh;
+	}
+
+	public void setTilesHigh(int tilesHigh) {
+		this.tilesHigh = tilesHigh;
+	}
+	
 }
 	

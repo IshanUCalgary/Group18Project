@@ -10,7 +10,7 @@ public class Enemy {
 
 	private Tile startTile;
 	private int width, height, currentCorner;
-	private float speed, x, y, health, startHealth;
+	private float speed, x, y, health, startHealth, hiddenHealth;
 	private Map grid;
 	private boolean first = true, alive = true;	// for performance issues when game starts
 	private ArrayList<CornerCheck> corners;
@@ -30,6 +30,7 @@ public class Enemy {
 		this.speed = speed;
 		this.health = health;
 		this.startHealth = health;
+		this.hiddenHealth = health;
 		this.grid = grid;
 		this.corners = new ArrayList<CornerCheck>();
 		this.directions = new int[2];
@@ -63,6 +64,7 @@ public class Enemy {
 			if (CornerReached()) {
 				if (currentCorner + 1 == corners.size())
 				{	
+					Player.modifyLives(-1);
 					Die();
 				}	
 				else 
@@ -120,11 +122,11 @@ public class Enemy {
 		
 		while (!found) {			
 			// if the current tile's type != the tile on the grid next to it that's being checked's type, a corner is found
-			if (current.getType() != grid.GetTile(current.getXPlace() + dir[0] * counter, current.getYPlace() + dir[1] * counter).getType()) {
+			if (current.getType() != grid.getTile(current.getXPlace() + dir[0] * counter, current.getYPlace() + dir[1] * counter).getType()) {
 				found = true;
 				// Moves counter back 1 to find the tile before the new tiletype
 				counter -= 1;
-				next = grid.GetTile(current.getXPlace() + dir[0] * counter, current.getYPlace() + dir[1] * counter);
+				next = grid.getTile(current.getXPlace() + dir[0] * counter, current.getYPlace() + dir[1] * counter);
 			}
 			counter ++;
 		}
@@ -138,10 +140,10 @@ public class Enemy {
 	// Tile current is the tile the enemy is currently at, returns an array of integers that tell us what direction to go next
 	private int[] FindNextDirection(Tile current) {
 		int[] dir = new int[2]; // dir[0] indicates x, dir[1] indicates y
-		Tile up    = grid.GetTile(current.getXPlace(),     current.getYPlace() - 1);
-		Tile right = grid.GetTile(current.getXPlace() + 1, current.getYPlace());
-		Tile down  = grid.GetTile(current.getXPlace(),     current.getYPlace() + 1);
-		Tile left  = grid.GetTile(current.getXPlace() - 1, current.getYPlace());
+		Tile up    = grid.getTile(current.getXPlace(),     current.getYPlace() - 1);
+		Tile right = grid.getTile(current.getXPlace() + 1, current.getYPlace());
+		Tile down  = grid.getTile(current.getXPlace(),     current.getYPlace() + 1);
+		Tile left  = grid.getTile(current.getXPlace() - 1, current.getYPlace());
 		
 		
 		if (current.getType() == up.getType() && directions[1] != 1) {
@@ -167,6 +169,7 @@ public class Enemy {
 	
 	private void Die() {
 		alive = false;
+		Player.modifyCash(5);
 	}
 	
 	public void hit(int amount)
@@ -178,8 +181,18 @@ public class Enemy {
 		}
 	}
 	
+	public void reduceHiddenHealth(float amount)
+	{
+		this.hiddenHealth -= amount;
+	}
+	
 	// setters and getters
 
+	public float getHiddenHealth()
+	{
+		return this.hiddenHealth;
+	}
+	
 	public Texture getTexture() {
 		return texture;
 	}

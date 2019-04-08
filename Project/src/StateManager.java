@@ -9,7 +9,7 @@ public class StateManager {
 		public static Game game;
 		public static Editor editor;
 		
-		static int[][] map = {
+		static int[][] smth = {
 				{0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 				{0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0},
 				{1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0},
@@ -25,7 +25,9 @@ public class StateManager {
 				{0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 				{0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 				{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0},
-        };
+	    };
+		
+		static Map map = new Map(smth);
 		
 		public static void update()
 		{
@@ -46,6 +48,8 @@ public class StateManager {
 					game.update();
 					break;
 				case EDITOR:
+					System.out.println("GAME OVER");
+					System.exit(0);
 					break;
 			}
 		}

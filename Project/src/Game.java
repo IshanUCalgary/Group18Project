@@ -1,4 +1,5 @@
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.opengl.Texture;
 
 public class Game {
 
@@ -7,15 +8,18 @@ public class Game {
 	private Enemy e;
 	private WaveManager wave;
 	private UI pickTower;
+	private Texture menuBackground;
 	public static final int TILE_SIZE = 64;
 	//private ScienceTower tower;
 	
-	public Game(int[][] map)
+	public Game(Map map)
 	{
-		grid = new Map(map);
-		e = new Enemy(Graphics.QuickLoad("enemy"), grid.GetTile(0, 2), grid, 64, 64, 70, 50);
-		wave = new WaveManager(e, 1, 5);
+		this.grid = map;
+		e = new Enemy(Graphics.QuickLoad("enemy"), grid.getTile(0, 2), grid, 64, 64, 70, 50);
+		wave = new WaveManager(e, 0, 5);
 		player = new Player(grid, wave);
+		player.setup();
+		this.menuBackground = Graphics.QuickLoad("selectorBackground");
 		setupUI();
 		//tower = new ScienceTower(Graphics.QuickLoad("cannonBase"), grid.GetTile(3, 3), 10);
 	}
@@ -45,14 +49,14 @@ public class Game {
 			{	
 				if(pickTower.getMenu("TowerPicker").isButtonClicked("ScienceTower"))
 				{
-					player.pickTower(new ScienceTower(TowerType.sTower, grid.GetTile(0, 0), 1000, wave.getCurrentWave().getEnemyList()));
+					player.pickTower(new ScienceTower(TowerType.sTower, grid.getTile(0, 0), 1000, wave.getCurrentWave().getEnemyList()));
 				}else if(pickTower.getMenu("TowerPicker").isButtonClicked("EngTower"))
 				{
-					player.pickTower(new SchulichTower(TowerType.schulichTower, grid.GetTile(0, 0), 1000,wave.getCurrentWave().getEnemyList()));
+					player.pickTower(new SchulichTower(TowerType.schulichTower, grid.getTile(0, 0), 1000,wave.getCurrentWave().getEnemyList()));
 				}
 				else if(pickTower.getMenu("TowerPicker").isButtonClicked("HaskTower"))
 				{
-					player.pickTower(new HaskyaneTower(TowerType.haskTower, grid.GetTile(0, 0),1000,wave.getCurrentWave().getEnemyList()));
+					player.pickTower(new HaskyaneTower(TowerType.haskTower, grid.getTile(0, 0),1000,wave.getCurrentWave().getEnemyList()));
 				}
 			}	
 		}	
@@ -61,12 +65,17 @@ public class Game {
 	
 	public void update()
 	{
-		Graphics.DrawQuadTex(Graphics.QuickLoad("selectorBackground"), 1280, 0, 520, 960);
-		grid.Draw();
-		player.Update();
-		Time.Update();
-		wave.update();
-		updateUI();
+		if(Player.Lives >= 1)
+		{	
+			Graphics.DrawQuadTex(menuBackground, 1280, 0, 520, 960);
+			grid.Draw();
+			player.Update();
+			Time.Update();
+			wave.update();
+			updateUI();
+		}else{
+			StateManager.gameState = StateManager.GameState.EDITOR;
+		}	
 		//tower.draw();
 		
 	}

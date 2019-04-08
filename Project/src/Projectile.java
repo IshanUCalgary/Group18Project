@@ -53,6 +53,7 @@ public class Projectile {
 	{
 		if(alive)
 		{	
+			calculateDirection();
 			x += xVelocity * speed * Time.Delta();
 			y += yVelocity * speed * Time.Delta();
 			if(target != null)

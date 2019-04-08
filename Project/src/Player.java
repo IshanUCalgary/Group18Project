@@ -10,6 +10,7 @@ public class Player {
 	private ArrayList<Tower> towerList;
 	private Tower tTower;
 	private WaveManager waveManager;
+	public static int Cash, Lives;
 	
 	
 	public Player(Map grid, WaveManager waveManager) {
@@ -19,7 +20,8 @@ public class Player {
 		this.holdingTower = false;
 		this.tTower = null;
 		this.waveManager = waveManager;
-		
+		Cash = 0;
+		Lives = 0;
 	}
 	
 	/*
@@ -35,7 +37,27 @@ public class Player {
 		
 	}*/
 	
-	
+	public void setup() {
+		Cash = 100;
+		Lives = 3;
+				
+	}
+	public static boolean modifyCash(int amount) {
+		if (Cash + amount >= 0) {
+			Cash +=amount;
+			System.out.println("The amount of money we have is " + Cash);
+			return true;
+		}
+		if (Cash + amount < 0) {
+			System.out.println("Sorry! Not enough money.");
+			return false;
+		}
+		return false;
+	}
+	public static void modifyLives(int amount) {
+		Lives += amount;
+		System.out.println("We have " + Lives + " Lives");
+	}
 	
 	public void Update()
     {
@@ -65,7 +87,7 @@ public class Player {
         }*/
 		
 
-		if(Mouse.isButtonDown(0) && !leftClick && grid.GetTile(Mouse.getX() / 64, (Graphics.HEIGHT - Mouse.getY() -1) / 64).getType().canBuild == true)
+		if(Mouse.isButtonDown(0) && !leftClick && grid.getTile(Mouse.getX() / 64, (Graphics.HEIGHT - Mouse.getY() -1) / 64).getType().canBuild == true)
 		{
 			placeTower();
 		}
@@ -77,7 +99,8 @@ public class Player {
 	{
 		if(holdingTower)
 		{
-			towerList.add(tTower);
+			if (modifyCash(-tTower.type.amount)) 
+				towerList.add(tTower);
 		}
 		holdingTower = false;
 		tTower = null;
@@ -91,7 +114,7 @@ public class Player {
 	
 	private Tile getMouseTile()
 	{
-		return grid.GetTile(Mouse.getX() / 64, (Graphics.HEIGHT - Mouse.getY() -1) / 64);
+		return grid.getTile(Mouse.getX() / 64, (Graphics.HEIGHT - Mouse.getY() -1) / 64);
 	}
     
 }
