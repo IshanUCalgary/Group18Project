@@ -1,7 +1,8 @@
 
 public class WaveManager {
 	private float timeSinceLastWave, timeBtwEnemies;
-	private int waveNumber, enemiesPerWave;
+	private int enemiesPerWave;
+	public static int waveNumber;
 	private Enemy enemyType;
 	private Wave currentWave;
 	

@@ -6,7 +6,7 @@ public class Wave {
 	private float timeSinceLastSpawn, spawnTime;
 	private Enemy enemyType;
 	private CopyOnWriteArrayList<Enemy> enemyList;
-	private int enemiesPerWave;
+	private int enemiesPerWave, enemiesSpawned;
 	private boolean waveCompleted;
 	
 	
@@ -14,10 +14,12 @@ public class Wave {
 		this.enemyType = enemyType;
 		this.spawnTime = spawnTime;
 		this.enemiesPerWave = enemiesPerWave;
+		this.enemiesSpawned = 0;
 		this.timeSinceLastSpawn = 0;
 		enemyList = new CopyOnWriteArrayList<Enemy>();
 		this.waveCompleted = false;
-		Spawn();
+		if(WaveManager.waveNumber >= 1)
+			Spawn();
 		//System.out.println("The size of enemyList is " + enemyList.size());
 	}
 	
@@ -26,14 +28,14 @@ public class Wave {
 		boolean allEnemiesDead = true;
 		//System.out.println("Reaches before 1st if condition");
 		
-		if(enemyList.size() < enemiesPerWave)
+		if(enemiesSpawned < enemiesPerWave)
 		{	
 			//System.out.println("Reaches before 2nd if condition");
 			timeSinceLastSpawn += Time.Delta();
 			if (timeSinceLastSpawn > spawnTime) {
 				// spawns a new enemy
 				//System.out.println("Reaches before 3rd if condition");
-				//Spawn();
+				Spawn();
 				//System.out.println("The size of enemyList is " + enemyList.size());
 				timeSinceLastSpawn = 0;
 			}
@@ -59,6 +61,7 @@ public class Wave {
 		enemyList.add(new Enemy(enemyType.getTexture(), enemyType
 				.getStartTile(), enemyType.getGrid(), 64, 64, enemyType
 				.getSpeed(), enemyType.getHealth()));
+		this.enemiesSpawned++;
 
 	}
 	

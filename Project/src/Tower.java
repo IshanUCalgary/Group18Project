@@ -27,7 +27,7 @@ public abstract class Tower implements Default{
 		this.height = sTile.getHeight();
 		this.enemies = enemies;
 		this.timeSinceLastShot = 0;
-		this.firingSpeed = 3;
+		this.firingSpeed = type.rateOfFire;
 		this.targeted = false;
 		this.projectiles = new CopyOnWriteArrayList<Projectile>();
 		//this.target = getTarget();
@@ -145,7 +145,7 @@ public abstract class Tower implements Default{
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		if(!targeted || target.getHiddenHealth() < 0){
+		if(!targeted || target.getHiddenHealth() < 0 && target.getHealth() == 0){
 			target = getTarget();
 		}else{
 			angle = calculateAngle();
