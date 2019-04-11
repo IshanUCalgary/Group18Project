@@ -1,17 +1,37 @@
+import java.awt.Font;
 import java.util.ArrayList;
 
 import org.lwjgl.input.Mouse;
 import org.newdawn.slick.opengl.Texture;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.TrueTypeFont;
 
 public class UI {
 
 	private ArrayList<Button> buttonList;
 	private ArrayList<Menu> menuList;
+	private TrueTypeFont font;
+	private Font awtFont;
+	private TrueTypeFont font1;
+	private Font awtFont1;
 	
 	public UI()
 	{
 		buttonList = new ArrayList<Button>();
 		menuList = new ArrayList<Menu>();
+		awtFont = new Font("Verdana", Font.BOLD | Font.ITALIC, 20);
+		font = new TrueTypeFont(awtFont, false);
+		awtFont1 = new Font("Verdana", Font.BOLD | Font.ITALIC, 30);
+		font1 = new TrueTypeFont(awtFont1, false);
+	}
+	
+	public void drawString(float x, float y, String text, Color c, String fontStyle) {
+		if (fontStyle.equals("font")) {
+			font.drawString(x, y, text, c); 
+			}
+		if (fontStyle.equals("font1")) {
+			font1.drawString(x, y, text, c); 
+			}
 	}
 	
 	public void addButton(String name, String textureName, int x, int y)
@@ -87,11 +107,9 @@ public class UI {
 			this.oHeight = oHeight;
 		}
 		
-		public void addButton(Button b)
+		public void addButton(String name, String textureName, int x, int y)
 		{
-			b.setX(x + buttonAmount * 64);
-			buttonAmount++;
-			buttonsInMenu.add(b);
+			buttonsInMenu.add(new Button(name, Graphics.QuickLoad(textureName), x, y));
 		}
 		
 		public boolean isButtonClicked(String buttonName)

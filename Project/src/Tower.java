@@ -8,7 +8,7 @@ public abstract class Tower implements Default{
 	private float x, y, timeSinceLastShot, firingSpeed, angle;
 	private int width, height, damage, range;
 	public Enemy target;
-	public ArrayList<Projectile> projectiles;
+	public static CopyOnWriteArrayList<Projectile> projectiles;
 	private CopyOnWriteArrayList<Enemy> enemies;
 	private Texture[] textures;
 	private boolean targeted;
@@ -29,7 +29,7 @@ public abstract class Tower implements Default{
 		this.timeSinceLastShot = 0;
 		this.firingSpeed = 3;
 		this.targeted = false;
-		this.projectiles = new ArrayList<Projectile>();
+		this.projectiles = new CopyOnWriteArrayList<Projectile>();
 		//this.target = getTarget();
 		//this.angle = calculateAngle();
 	}

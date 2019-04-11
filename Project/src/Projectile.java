@@ -62,6 +62,7 @@ public class Projectile {
 				{
 					target.hit(damage);
 					alive = false;
+					Tower.projectiles.remove(0);
 				}
 			}	
 			draw();

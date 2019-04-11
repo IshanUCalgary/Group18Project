@@ -20,8 +20,8 @@ public class Player {
 		this.holdingTower = false;
 		this.tTower = null;
 		this.waveManager = waveManager;
-		Cash = 0;
-		Lives = 0;
+		Cash = 100;
+		Lives = 3;
 	}
 	
 	/*
@@ -115,6 +115,14 @@ public class Player {
 	private Tile getMouseTile()
 	{
 		return grid.getTile(Mouse.getX() / 64, (Graphics.HEIGHT - Mouse.getY() -1) / 64);
+	}
+	
+	public int getCash() {
+		return Cash;
+	}
+	
+	public int getLives() {
+		return Lives;
 	}
     
 }
