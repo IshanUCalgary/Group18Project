@@ -22,7 +22,7 @@ public class Game {
 	public Game(Map map)
 	{
 		this.grid = map;
-		e = new Enemy(Graphics.QuickLoad("enemy"), grid.getTile(0, 2), grid, 64, 64, 70, 100);
+		e = new Enemy(Graphics.QuickLoad("enemy"), grid.getTile(0, 2), grid, 64, 64, 90, 150);
 		selectorBackground = Graphics.QuickLoad("selectorBackground");
 		//Label = Graphics.QuickLoad("Label");
 		wave = new WaveManager(e, 1, 5);

@@ -55,6 +55,10 @@ public class Player {
 		return false;
 	}
 	public static void modifyLives(int amount) {
+		if(Lives == 1)
+		{
+			StateManager.setState(StateManager.GameState.EDITOR);
+		}
 		Lives += amount;
 		System.out.println("We have " + Lives + " Lives");
 	}

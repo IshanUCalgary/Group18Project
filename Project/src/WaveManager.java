@@ -1,7 +1,7 @@
 
 public class WaveManager {
 	private float timeSinceLastWave, timeBtwEnemies;
-	private int enemiesPerWave;
+	public static int enemiesPerWave;
 	public static int waveNumber;
 	private Enemy enemyType;
 	private Wave currentWave;
@@ -29,8 +29,13 @@ public class WaveManager {
 	
 	private void newWave()
 	{
+		if(waveNumber == 10)
+		{
+			StateManager.setState(StateManager.GameState.EDITOR);
+		}
 		currentWave = new Wave(enemyType, timeBtwEnemies, enemiesPerWave);
 		waveNumber++;
+		enemiesPerWave = enemiesPerWave + 4;
 	}
 	
 	public Wave getCurrentWave()

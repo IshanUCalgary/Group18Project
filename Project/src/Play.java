@@ -16,6 +16,7 @@ public class Play {
         
         while(!Display.isCloseRequested()) {
         	//game.update();
+
         	Graphics.DrawPanelTower("Tower1");
         	StateManager.update();
         	Display.update();
